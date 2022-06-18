@@ -24,7 +24,7 @@ body{
     
 }
 
-.box{
+.gameBoard div{
     background-color: rgb(172, 167, 163);
     height: 16vmin;
     width:  16vmin;
