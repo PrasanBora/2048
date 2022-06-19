@@ -21,7 +21,7 @@ let filledCell=[[0 , 0 , 0 , 0] , [0 , 0 , 0 , 0]
            
         }
     }
-    // updateValue();
+  
 
 // function to genrate a new cell value i.e 2 or 4
 generate =()=>{
@@ -32,7 +32,7 @@ generate =()=>{
   else 
   { return 4;}
 }
-// console.log(generate());
+
 
 // function to get a new position for new cell 
 newPosition=()=>{
@@ -64,10 +64,12 @@ document.querySelector("body").addEventListener('keyup',(e)=>{
                 break
 
             case "ArrowRight":
+                moveRight();
                 newPosition();
             break
 
             case "ArrowLeft":
+                moveLeft();
                 newPosition();
             break  
     }
@@ -76,28 +78,24 @@ document.querySelector("body").addEventListener('keyup',(e)=>{
 
 function updateValue(i,j)
 {
-    
             if(filledCell[i][j]>0)
             document.querySelector(`#index${i}-${j}`).innerHTML=filledCell[i][j];
-             
             else
             {
                 document.querySelector(`#index${i}-${j}`).innerHTML="";  
             }
-            
-
         }
  
 function moveUp()
 {
     for(let j=0;j<4;j++)
     {
-        console.log("--     555555555--");
+        // console.log("--     555555555--");
         for(let i=3;i>0;i--)
         {
-            console.log(filledCell[i][j]);
-            console.log("----");
-            if(filledCell[i][j]===filledCell[i-1][j] && filledCell[i][j]!=0)
+            // console.log(filledCell[i][j]);
+            // console.log("----");
+            if(filledCell[i][j]===filledCell[i-1][j] && filledCell[i][j])
             {  
                 // merge
                 filledCell[i-1][j]=2*filledCell[i][j];
@@ -106,6 +104,7 @@ function moveUp()
                 userScore.innerHTML=score;
                 updateValue(i,j);
                 updateValue(i-1,j);
+                i--;
             }
 
              else if(filledCell[i][j] && !filledCell[i-1][j])
@@ -120,3 +119,89 @@ function moveUp()
     }
 }
 
+function moveDown()
+{
+    // console.log("move down called");
+   for(let j=0;j<4;j++)
+   {
+    for( let i=0;i<3;i++)
+    {
+        console.log("loop is great ");
+      if(filledCell[i][j]===filledCell[i+1][j] && filledCell[i][j])
+      {
+        filledCell[i+1][j]=2*filledCell[i][j];
+        filledCell[i][j]=0;
+        score=score+filledCell[i+1][j];
+        userScore.innerHTML=score;
+        updateValue(i,j);
+        updateValue(i+1,j);
+        i++;
+      }
+
+      else if(filledCell[i][j] && !filledCell[i+1][j])
+      {
+        filledCell[i+1][j]=filledCell[i][j];
+        filledCell[i][j]=0;
+        updateValue(i,j);
+        updateValue(i+1,j);
+      }
+    }
+   }
+}
+
+function moveLeft()
+{
+    for( i=0;i<4;i++)
+    {
+        for( j=3;j>0;j--)
+        {
+            if(filledCell[i][j]===filledCell[i][j-1] && filledCell[i][j])
+            {
+               filledCell[i][j-1]=2*filledCell[i][j];
+               filledCell[i][j]=0;
+               updateValue(i,j);
+               updateValue(i,j-1);
+               score=score+filledCell[i][j-1];
+               userScore.innerHTML=score;
+               j--;
+            }
+
+            else if(filledCell[i][j] && !filledCell[i][j-1])
+            {
+                filledCell[i][j-1] =filledCell[i][j];
+                filledCell[i][j]=0;
+                updateValue(i,j);
+                updateValue(i,j-1);
+            }
+        }
+    }
+}
+
+function moveRight()
+{ for(let i=0;i<4;i++)
+    {
+     for( let j=0;j<3;j++)
+     {
+        //  console.log("loop is great ");
+       if(filledCell[i][j]===filledCell[i][j+1] && filledCell[i][j])
+       {
+         filledCell[i][j+1]=2*filledCell[i][j];
+         filledCell[i][j]=0;
+         score=score+filledCell[i][j+1];
+         userScore.innerHTML=score;
+         updateValue(i,j);
+         updateValue(i,j+1);
+         i++;
+       }
+ 
+       else if(filledCell[i][j] && !filledCell[i][j+1])
+       {
+         filledCell[i][j+1]=filledCell[i][j];
+         filledCell[i][j]=0;
+         updateValue(i,j);
+         updateValue(i,j+1);
+       }
+     }
+    }
+
+}
