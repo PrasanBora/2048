@@ -1,11 +1,15 @@
 
 const gameBoard =document.querySelector(".gameBoard")
-// const cell =document.querySelectorAll(".box");
-const userScore= document.querySelector(".points")
-// cell[0].innerHTML=34;
 
-let score =0;
-let filledCell=[[0 , 0 , 0 , 0] , [0 , 0 , 0 , 0]
+const userScore= document.querySelector(".points")
+
+
+let filledCell;
+let endGame ;
+let score;
+
+function startGame () { score =0;
+filledCell=[[0 , 0 , 0 , 0] , [0 , 0 , 0 , 0]
 ,[0 , 0 , 0 , 0],[0 , 0 , 0 , 0]]; //array to mark cell with value 
 
    for(let j=0;j<4;j++)
@@ -22,6 +26,7 @@ let filledCell=[[0 , 0 , 0 , 0] , [0 , 0 , 0 , 0]
         }
     }
   
+}
 
 // function to genrate a new cell value i.e 2 or 4
 generate =()=>{
@@ -36,15 +41,25 @@ generate =()=>{
 
 // function to get a new position for new cell 
 newPosition=()=>{
-    let newi =Math.floor(Math.random()*4);
+      
+    if(canPlay()===1)
+    {
+        let newi =Math.floor(Math.random()*4);
     let newj =Math.floor(Math.random()*4);
     
     if(filledCell[newi][newj]!=0)
-    newPosition();
+    {
+       newPosition();
+    }
     else 
     filledCell[newi][newj]=generate();
     updateValue(newi,newj);
 }
+else alert("you loose refresh page for new game ");
+}
+
+startGame();
+
 newPosition();
 
 document.querySelector("body").addEventListener('keyup',(e)=>{
@@ -79,7 +94,12 @@ document.querySelector("body").addEventListener('keyup',(e)=>{
 function updateValue(i,j)
 {
             if(filledCell[i][j]>0)
-            document.querySelector(`#index${i}-${j}`).innerHTML=filledCell[i][j];
+            {
+                let cell=document.querySelector(`#index${i}-${j}`);
+                  cell.innerHTML=filledCell[i][j];
+                  cell.classList.add(`value${filledCell[i][j]}`);
+
+            }
             else
             {
                 document.querySelector(`#index${i}-${j}`).innerHTML="";  
@@ -126,7 +146,7 @@ function moveDown()
    {
     for( let i=0;i<3;i++)
     {
-        console.log("loop is great ");
+        // console.log("loop is great ");
       if(filledCell[i][j]===filledCell[i+1][j] && filledCell[i][j])
       {
         filledCell[i+1][j]=2*filledCell[i][j];
@@ -204,4 +224,18 @@ function moveRight()
      }
     }
 
+}
+
+function canPlay()
+{ 
+    for(let i=0;i<4;i++)
+    {
+     for( let j=0;j<4;j++)
+     {
+      if(filledCell[i][j]==0){
+        return 1;
+      }
+}
+}
+return 0 ;
 }
