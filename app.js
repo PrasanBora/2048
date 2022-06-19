@@ -93,16 +93,18 @@ document.querySelector("body").addEventListener('keyup',(e)=>{
 
 function updateValue(i,j)
 {
+    let cell=document.querySelector(`#index${i}-${j}`);
             if(filledCell[i][j]>0)
             {
-                let cell=document.querySelector(`#index${i}-${j}`);
+                
                   cell.innerHTML=filledCell[i][j];
                   cell.classList.add(`value${filledCell[i][j]}`);
-
+                    // console.log("value"+filledCell[i][j]);
             }
             else
             {
-                document.querySelector(`#index${i}-${j}`).innerHTML="";  
+                document.querySelector(`#index${i}-${j}`).innerHTML="";
+                cell.className="";  
             }
         }
  
