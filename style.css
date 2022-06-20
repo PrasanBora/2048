@@ -22,7 +22,6 @@ body {
     width:  70vmin;
     height: 70vmin;
     margin: 5vmin auto ;
-    
     padding: 4px;
     
 }
@@ -33,7 +32,6 @@ body {
     width:  16vmin;
     border-radius: 0.5vmin;
     text-align: center;
-    align-items: center;
     font-weight: bolder;
     font-size: 9vmin;
     line-height: 17vmin;
@@ -47,9 +45,8 @@ body {
     margin:2vmin;
     color:white;
     font-size: medium ;
-    /* font-family: Arial ; */
-
 }
+
 .heading
 {
     margin: 1.5vmin 8vmin;
@@ -69,7 +66,6 @@ body {
     padding: 0 3vmin;
     line-height: 1vmin;
     height: 8vmin;
-
 }
 
 .scoreBar
@@ -90,6 +86,7 @@ body {
     font-weight: lighter;
     color:white;
 }
+
 /* //coloring the cell  */
 
 .value2 {
@@ -146,4 +143,5 @@ body {
 
 .value2048{
 color:#f9f6f2;
-background-color:#edc22e !important;}
+background-color:#edc22e !important;
+}
