@@ -3,14 +3,31 @@ const gameBoard =document.querySelector(".gameBoard")
 
 const userScore= document.querySelector(".points")
 
-
+let score ;
 let filledCell;
 let endGame ;
-let score;
+let highScore=0;
 
-function startGame () { score =0;
-filledCell=[[0 , 0 , 0 , 0] , [0 , 0 , 0 , 0]
-,[0 , 0 , 0 , 0],[0 , 0 , 0 , 0]]; //array to mark cell with value 
+startGame();
+newPosition();
+
+document.querySelector(".newPlay").addEventListener("click",function()
+{
+    gameBoard.innerHTML=""; 
+    startGame();
+    newPosition(); 
+    
+    console.log(filledCell);
+});
+
+function startGame () 
+{ 
+  score =0;
+  userScore.innerHTML=score;
+   filledCell=[[0 , 0 , 0 , 0] , [0 , 0 , 0 , 0]
+               ,[0 , 0 , 0 , 0],[0 , 0 , 0 , 0]]; 
+               //array to mark cell with value 
+
 
    for(let j=0;j<4;j++)
     {
@@ -21,15 +38,13 @@ filledCell=[[0 , 0 , 0 , 0] , [0 , 0 , 0 , 0]
             gameBoard.append(cell);
             
             updateValue(j,k);
-
-           
         }
     }
   
 }
 
 // function to genrate a new cell value i.e 2 or 4
-generate =()=>{
+ function generate () {
 
   let newValue =Math.floor(Math.random()*2);
   if(newValue===0)
@@ -40,7 +55,7 @@ generate =()=>{
 
 
 // function to get a new position for new cell 
-newPosition=()=>{
+ function newPosition (){
       
     if(canPlay()===1)
     {
@@ -55,12 +70,9 @@ newPosition=()=>{
     filledCell[newi][newj]=generate();
     updateValue(newi,newj);
 }
-else alert("you loose refresh page for new game ");
+else alert("Well played ! but you loose start new game by New Game button ");
 }
 
-startGame();
-
-newPosition();
 
 document.querySelector("body").addEventListener('keyup',(e)=>{
     // console.log(e.key);
@@ -70,22 +82,26 @@ document.querySelector("body").addEventListener('keyup',(e)=>{
                 
                 moveUp();
                 newPosition();
+                updateHighScore ();
               break
 
             case "ArrowDown":
                 
                 moveDown();
                 newPosition();
+                updateHighScore ();
                 break
 
             case "ArrowRight":
                 moveRight();
                 newPosition();
+                updateHighScore ();
             break
 
             case "ArrowLeft":
                 moveLeft();
                 newPosition();
+                updateHighScore ();
             break  
     }
 });
@@ -240,4 +256,15 @@ function canPlay()
 }
 }
 return 0 ;
+}
+
+function updateHighScore ()
+{
+    // console.log( score , highScore );
+   if(score>=highScore)
+   {
+   highScore=score;
+   console.log( score , highScore );
+   document.querySelector(".best").innerHTML= highScore;
+   }
 }
