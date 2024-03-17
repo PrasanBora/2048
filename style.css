@@ -78,7 +78,7 @@ body {
     border-radius: 1vmin; 
     height: 8vmin;  
     margin-bottom: 2vmin;
-    display: flex;
+    display: inline-block;
 }
 
 .best ,.points
